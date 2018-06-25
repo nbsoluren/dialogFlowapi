@@ -2,7 +2,13 @@ import mysql from 'mysql';
 import config from './config';
 export default callback => {
 
-	const db = mysql.createConnection(config.db);
+	const db = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "root",
+        database: "DialogFlow",
+        multipleStatements: true
+    });
 
 	db.connect ( err => {
 		if (err) {

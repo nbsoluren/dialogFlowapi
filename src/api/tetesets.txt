@@ -1,0 +1,17 @@
+switch(request.body.queryResult.action){
+		case 'searchBook':
+			response.send({
+				fulfillmentText: `searching book titledre ${request.body.queryResult.parameters.title} `
+			});
+            break;
+        case 'borrowBooks':
+            response.send({
+                fulfillmentText: `you've now borrowed ${request.body.queryResult.parameters.title} `
+            });
+            break;
+        case 'returnBook':
+            response.send({
+                fulfillmentText: `you've now returned book ${request.body.queryResult.parameters.title} `
+            });
+            break;
+	}
