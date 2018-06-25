@@ -74,3 +74,35 @@ export function borrowBook(db, req, res) {
 		});
 	});
 }
+
+export function returnBook(db, req, res) {
+	const params = req.body.queryResult.parameters;
+	var queryString = 'SELECT isBorrowed FROM book WHERE name = ?';
+
+	db.query(queryString, params.title, (err, rows) => {
+		if(err) {
+			console.log(err);
+			return res.json({ fulfillmentText: 'Hmm. I might have misunderstood that. butts. labyu' });
+		}
+
+		if(!rows.length) {
+			return res.json({ fulfillmentText: 'Can\'t find that book in the library.' });
+		}
+
+		if(!rows[0].isBorrowed){
+			return res.json({ fulfillmentText: 'That book has already been returned' });
+		}
+
+		queryString = 'UPDATE book SET isBorrowed = ? WHERE name= ?';
+		const values = [0, params.title];
+		
+		db.query(queryString, values, (err, rows) => {
+			if(err) {
+				console.log(err);
+				return res.json({ fulfillmentText: 'Hmm. I might have misunderstood that 👾 Please say it more properly 😁' });
+			}
+
+			return res.json({ fulfillmentText: 'You returned the book. Gudjab.' });
+		});
+	});
+}

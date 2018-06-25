@@ -14,6 +14,9 @@ export default ({ config, db }) => {
 		console.log(res.body);
 		try {
 			switch(req.body.queryResult.action) {
+				case 'returnBook':
+					return func.returnBook(db,req,res);
+					break;
 				case 'showAvailable':
 					return func.showAllUnborrowedBooks(db,req,res);
 					break;
