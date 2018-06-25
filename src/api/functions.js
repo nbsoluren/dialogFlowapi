@@ -50,7 +50,7 @@ export function borrowBook(db, req, res) {
 	db.query(queryString, params.title, (err, rows) => {
 		if(err) {
 			console.log(err);
-			return res.json({ fulfillmentText: 'Hmm. I might have misunderstood that.' });
+			return res.json({ fulfillmentText: 'Hmm. I might have misunderstood that. butts.' });
 		}
 
 		if(!rows.length) {
@@ -61,7 +61,7 @@ export function borrowBook(db, req, res) {
 			return res.json({ fulfillmentText: 'That book has already been borrowed' });
 		}
 
-		queryString = 'UPDATE book SET isBorrowed = ? WHERE title = ?';
+		queryString = 'UPDATE book SET isBorrowed = ? WHERE name= ?';
 		const values = [1, params.title];
 		
 		db.query(queryString, values, (err, rows) => {

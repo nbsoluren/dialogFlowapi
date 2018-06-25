@@ -11,12 +11,18 @@ export default ({ config, db }) => {
 	api.use('/facets', facets({ config, db }));
 
 	api.post('/webhook', async (req, res) => {
+		console.log(res.body);
 		try {
 			switch(req.body.queryResult.action) {
 				case 'showAvailable':
 					return func.showAllUnborrowedBooks(db,req,res);
+					break;
 				case 'showBorrowed':	
 					return func.showAllBorrowedBooks(db,req,res);
+					break;
+				case 'borrowBooks':
+					return func.borrowBook(db,req,res);
+					break;
 			}
 		}catch (err) {
 			console.log(err);
