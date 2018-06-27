@@ -26,10 +26,13 @@ export default ({ config, db }) => {
 				case 'borrowBooks':
 					return func.borrowBook(db,req,res);
 					break;
+				case 'searchBook':
+					return func.searchBook(db,req,res);
+					break;
 			}
 		}catch (err) {
 			console.log(err);
-			return res.json({fulfillmentText: 'There was an error. :<'});
+			return res.json({fulfillmentText: 'There was an error. :< here!'});
 		}
 	});
 
