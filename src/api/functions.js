@@ -46,8 +46,11 @@ export function showAllBorrowedBooks(db, req, res) {
 
 export function borrowBook(db, req, res) {
 	console.log("yo roight");
-	//console.log(req.body.originalDetectIntentRequest.payload.data.sender.id);
+	console.log(req.body.originalDetectIntentRequest.payload.data.sender.id);
 	const params = req.body.queryResult.parameters;
+
+
+
 	var queryString = 'SELECT isBorrowed FROM book WHERE name = ?';
 
 	db.query(queryString, params.title, (err, rows) => {
@@ -73,23 +76,38 @@ export function borrowBook(db, req, res) {
 				return res.json({ fulfillmentText: 'Hmm. I might have misunderstood that 👾 Please say it more properly 😁' });
 			}
 
+			// var FBMessenger = require('fb-messenger')
+			// var messenger = new FBMessenger('EAANxl0AfLbwBAOKTYmFv86iV2TSovhZCPCu5RrWCReRKXnUo6Ls9B7zdjdobzmtfcwtJkXbIejmAXvJjn7lBZAcE2eY87zwNxTZCCAOvR6LKcaDS8YTzQZCguTPzfsLevbdCCeKTiGVFQlkkx2yEjUUYi8LrTu6uxMiP90CbavSSEcIom8Da')
+			
+			// messenger.sendTextMessage(2044645818940106, 'Hello', function (err, body) {
+			// if(err) return console.error(err)
+			// console.log(body)
+			// })
+
 
 			var body = { 
-				"messaging_type": "update",
+				"messaging_type": "UPDATE",
 				"recipient": {
-				"id": "1716566581793299"
+				"id": "2044645818940106"
 				},
 				"message": {
 				"text": "hello, world!"
 				}
 			 };
-			fetch('"https://graph.facebook.com/v2.6/me/messages?access_token="https://graph.facebook.com/v2.6/me/messages?access_token=EAANxl0AfLbwBAOKTYmFv86iV2TSovhZCPCu5RrWCReRKXnUo6Ls9B7zdjdobzmtfcwtJkXbIejmAXvJjn7lBZAcE2eY87zwNxTZCCAOvR6LKcaDS8YTzQZCguTPzfsLevbdCCeKTiGVFQlkkx2yEjUUYi8LrTu6uxMiP90CbavSSEcIom8Da', { 
+			fetch('https://graph.facebook.com/v2.6/me/messages?access_token=EAANxl0AfLbwBAOKTYmFv86iV2TSovhZCPCu5RrWCReRKXnUo6Ls9B7zdjdobzmtfcwtJkXbIejmAXvJjn7lBZAcE2eY87zwNxTZCCAOvR6LKcaDS8YTzQZCguTPzfsLevbdCCeKTiGVFQlkkx2yEjUUYi8LrTu6uxMiP90CbavSSEcIom8Da', { 
 				method: 'POST',
 				body:    JSON.stringify(body),
 				headers: { 'Content-Type': 'application/json' },
 			})
 				.then(res => res.json())
 				.then(json => console.log(json));
+			// var FBMessenger = require('fb-messenger')
+			// var messenger = new FBMessenger('EAANxl0AfLbwBAOKTYmFv86iV2TSovhZCPCu5RrWCReRKXnUo6Ls9B7zdjdobzmtfcwtJkXbIejmAXvJjn7lBZAcE2eY87zwNxTZCCAOvR6LKcaDS8YTzQZCguTPzfsLevbdCCeKTiGVFQlkkx2yEjUUYi8LrTu6uxMiP90CbavSSEcIom8Da')
+			
+			// messenger.sendTextMessage(2044645818940106, 'Hello', function (err, body) {
+			// if(err) return console.error(err)
+			// console.log(body)
+			// })
 
 			return res.json({ fulfillmentText: `You borrowed ${params.title}` });
 		});
