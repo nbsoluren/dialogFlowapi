@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS `book`;
 CREATE TABLE `book` (
     `bookId` int(10) NOT NULL AUTO_INCREMENT,
     `name` varchar(256) DEFAULT NULL,
+    `url` varchar(256) DEFAULT NULL,
     `author` varchar(256) DEFAULT NULL,
     `category` varchar(256) DEFAULT NULL,
     `isBorrowed` boolean,
